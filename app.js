@@ -2,10 +2,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // 💾 Lista de aplicaciones (simulación de base de datos)
     const apps = [
         { 
-            name: "App Meteor", 
+            name: "Appod", 
             description: "La app del tiempo con el mejor diseño Material 3.", 
-            icon: "icons/app1_icon.png", 
-            downloadUrl: "apks/app_meteor.apk" 
+            icon: "https://appod.angelcalderon.dev/appod.png"
+            url: "https://www.mediafire.com/file/m1at3dz0tjxbze3/appod.apk/file"
         },
         { 
             name: "TaskFlow", 
