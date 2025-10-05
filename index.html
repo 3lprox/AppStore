@@ -3,46 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda de APKs - Estilo Material</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <title>Juego de Fútbol - HaxStyle</title>
     <link rel="stylesheet" href="style.css">
     
     <script type="module">
         import 'https://cdn.jsdelivr.net/npm/@material/web@1.0.0/all.js';
     </script>
-
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <md-top-app-bar id="app-bar">
-            <span slot="title">Tienda de APKs ✨</span>
-            <md-icon-button slot="navigation-icon">
-                <md-icon>menu</md-icon>
-            </md-icon-button>
-            <md-icon-button slot="action-items">
-                <md-icon>search</md-icon>
-            </md-icon-button>
+            <span slot="title">Fútbol de Práctica 🥅</span>
         </md-top-app-bar>
     </header>
 
-    <main id="app-list">
-        <h1>Aplicaciones Destacadas</h1>
-        <md-card class="app-card" type="elevated">
-            <div class="card-content">
-                <img src="placeholder.png" alt="Icono de la App" class="app-icon">
-                <div class="app-info">
-                    <h2>Mi Super App</h2>
-                    <p class="description">La mejor app para gestionar tus tareas diarias.</p>
+    <main>
+        <div id="game-container">
+            <canvas id="game-canvas" width="800" height="400"></canvas>
+            
+            <div id="mobile-controls" class="hidden">
+                <div id="dpad">
+                    <md-icon-button class="control-btn" data-key="w">▲</md-icon-button>
+                    <div class="middle-row">
+                        <md-icon-button class="control-btn" data-key="a">◄</md-icon-button>
+                        <md-icon-button class="control-btn" data-key="d">►</md-icon-button>
+                    </div>
+                    <md-icon-button class="control-btn" data-key="s">▼</md-icon-button>
                 </div>
-                <md-filled-button class="download-button">
-                    Descargar APK
-                    <md-icon slot="icon">download</md-icon>
-                </md-filled-button>
+                <md-fab id="kick-btn" data-key="x" variant="primary">K</md-fab>
             </div>
-        </md-card>
-        
-        </main>
+        </div>
+    </main>
 
     <script src="app.js"></script>
 </body>
