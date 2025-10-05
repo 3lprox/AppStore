@@ -1,97 +1,112 @@
 :root {
-    /* Define tus colores Material (Primary y Secondary) */
-    --md-sys-color-primary: #673AB7; /* Un morado vibrante, como Google */
+    /* Colores Material */
+    --md-sys-color-primary: #00897B; /* Verde Teal */
     --md-sys-color-on-primary: #FFFFFF;
-    --md-sys-color-surface: #F3F5F7; /* Fondo ligero */
-    --md-sys-color-on-surface: #1C1B1F; 
-    --md-sys-color-secondary: #00BCD4; /* Un cian para acentos */
-    
-    /* Configuración de fuente */
-    font-family: 'Roboto', sans-serif;
+    --md-sys-color-surface: #F8F9FA; 
 }
 
 body {
     margin: 0;
-    padding: 0;
     background-color: var(--md-sys-color-surface);
-    color: var(--md-sys-color-on-surface);
+    font-family: 'Roboto', sans-serif;
 }
 
-/* Estilo para la barra de navegación superior (Top App Bar) */
 #app-bar {
-    /* Usamos el color primario de Material */
     --md-top-app-bar-container-color: var(--md-sys-color-primary);
     --md-top-app-bar-headline-color: var(--md-sys-color-on-primary);
-    --md-top-app-bar-navigation-icon-color: var(--md-sys-color-on-primary);
-    --md-top-app-bar-action-icon-color: var(--md-sys-color-on-primary);
-    position: sticky; /* Se mantiene fija al hacer scroll */
+    position: sticky;
     top: 0;
     z-index: 10;
 }
 
 main {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 20px auto;
-    display: grid;
-    gap: 20px;
-    /* Diseño de cuadrícula adaptable para las tarjetas */
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-}
-
-h1 {
-    grid-column: 1 / -1; /* Ocupa todo el ancho en la cuadrícula */
-    margin-bottom: 10px;
-    font-size: 2em;
-    font-weight: 500;
-}
-
-/* Estilo de la Tarjeta (Card) de la aplicación */
-.app-card {
-    /* Asegúrate de que las tarjetas tengan esquinas redondeadas (típico de Material) */
-    --md-card-container-shape: 16px;
-    --md-card-container-color: white;
-    padding: 15px;
-}
-
-.card-content {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    text-align: center;
+    min-height: calc(100vh - 64px); /* Altura de la pantalla menos la barra superior */
+    padding: 20px;
 }
 
-.app-icon {
-    width: 80px;
-    height: 80px;
-    border-radius: 15px; /* Iconos con esquinas sutilmente redondeadas */
-    object-fit: cover;
-    margin-bottom: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sutil sombra de elevación */
+#game-container {
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    overflow: hidden; /* Mantiene el canvas dentro de los bordes */
 }
 
-.app-info h2 {
-    margin: 0;
-    font-size: 1.5em;
-    font-weight: 500;
+/* Estilo del Canvas (Campo de juego) */
+#game-canvas {
+    background-color: #4CAF50; /* Color del campo */
+    display: block;
 }
 
-.app-info .description {
-    margin: 5px 0 15px;
-    color: #555;
-}
-
-/* Estilo del botón de descarga Material */
-.download-button {
+/* 📱 Controles Móviles */
+#mobile-controls {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    /* Usa el color secundario como acento si lo prefieres */
-    --md-filled-button-container-color: var(--md-sys-color-secondary);
-    --md-filled-button-label-text-color: var(--md-sys-color-on-primary);
+    height: 100%;
+    z-index: 5; /* Por encima del canvas */
+    pointer-events: none; /* Permite que los clics pasen, excepto a los botones */
 }
 
-/* Ajustes para móvil */
-@media (max-width: 600px) {
-    main {
-        grid-template-columns: 1fr; /* Una sola columna en móviles */
+.hidden {
+    display: none !important;
+}
+
+#dpad {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 60px);
+    grid-template-rows: repeat(3, 60px);
+    gap: 5px;
+}
+
+.middle-row {
+    grid-column: 1 / span 3;
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+#dpad .control-btn {
+    pointer-events: auto;
+    width: 60px;
+    height: 60px;
+    font-size: 1.5em;
+    --md-icon-button-container-color: rgba(0, 0, 0, 0.5); /* Semi-transparente */
+    --md-icon-button-icon-color: white;
+}
+/* Posicionamiento en el grid */
+#dpad .control-btn[data-key="w"] { grid-area: 1 / 2 / 2 / 3; }
+#dpad .control-btn[data-key="a"] { grid-area: 2 / 1 / 3 / 2; }
+#dpad .control-btn[data-key="d"] { grid-area: 2 / 3 / 3 / 4; }
+#dpad .control-btn[data-key="s"] { grid-area: 3 / 2 / 4 / 3; }
+
+
+#kick-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    pointer-events: auto;
+    font-weight: bold;
+    font-size: 1.2em;
+    width: 70px;
+    height: 70px;
+    --md-fab-container-color: #FF5722; /* Naranja de acción */
+}
+
+/* Ocultar controles en PC y mostrar solo en pantallas pequeñas (Móvil) */
+@media (min-width: 801px) {
+    #mobile-controls {
+        display: none !important;
+    }
+}
+@media (max-width: 800px) {
+    #mobile-controls {
+        display: block !important;
     }
 }
